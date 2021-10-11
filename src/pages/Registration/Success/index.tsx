@@ -13,11 +13,11 @@ function Success() {
         prevState.length > 2 ? "." : prevState + "."
       );
     }, 500);
-    setInterval(() => {
+    setTimeout(() => {
       clearInterval(interval);
       history.push("/login");
     }, 5000);
-  }, []);
+  }, [history]);
 
   return (
     <Container>

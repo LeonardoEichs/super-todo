@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 import { Container } from "./styles";
 
 interface ConfirmationProps {
@@ -12,7 +10,7 @@ interface FormDataProps {
   username: string;
   email: string;
   password: string;
-  age: number;
+  birth_date: Date;
 }
 
 function Confirmation({ previousStep, nextStep, formData }: ConfirmationProps) {
@@ -22,9 +20,9 @@ function Confirmation({ previousStep, nextStep, formData }: ConfirmationProps) {
       <div>
         <p>Username: {formData.username}</p>
         <p>Email: {formData.email}</p>
-        <p>Age: {formData.age}</p>
+        <p>Birth Date: {formData.birth_date}</p>
       </div>
-      <button onClick={previousStep}>Previos</button>
+      <button onClick={previousStep}>Previous</button>
       <button onClick={nextStep}>Continue</button>
     </Container>
   );

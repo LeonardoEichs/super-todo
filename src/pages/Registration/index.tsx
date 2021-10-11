@@ -16,14 +16,14 @@ interface FormDataProps {
   username: string;
   email: string;
   password: string;
-  age: number;
+  birth_date: Date;
 }
 
 const defaultFormState: FormDataProps = {
   username: "",
   email: "",
   password: "",
-  age: 0,
+  birth_date: new Date(),
 };
 
 function Registration() {
