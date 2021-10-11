@@ -88,7 +88,11 @@ function Login() {
     <Container>
       <h1>Login</h1>
       {errors.length > 0 &&
-        errors.map((error) => <p style={{ color: "red" }}>{error}</p>)}
+        errors.map((error, index) => (
+          <p key={index} style={{ color: "red" }}>
+            {error}
+          </p>
+        ))}
       {isValidLogin && <p style={{ color: "green" }}>Credenciais corretas</p>}
       <form onSubmit={login}>
         <Input

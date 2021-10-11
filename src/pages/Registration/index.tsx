@@ -18,6 +18,7 @@ interface FormDataProps {
   email: string;
   password: string;
   birth_date: Date;
+  profilePic: File;
   otherComments: string;
   usePurpose: string;
   otherProducts: string[];
@@ -29,6 +30,7 @@ const defaultFormState: FormDataProps = {
   email: "",
   password: "",
   birth_date: new Date(),
+  profilePic: new File([""], ""),
   otherComments: "",
   usePurpose: "Personal",
   otherProducts: [],

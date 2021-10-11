@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
 import FormikDatePicker from "components/FormikDatePicker";
+import ImgPreview from "components/ImgPreview";
 
 import { Formik, Field, Form, ErrorMessage } from "formik";
 
@@ -13,14 +14,6 @@ interface AccountFieldsProps {
   formData: any;
 }
 
-interface AccountFieldProps {
-  name: string;
-  username: string;
-  email: string;
-  password: string;
-  birth_date: Date;
-}
-
 const today: Date = new Date();
 
 function AccountFields({
@@ -29,6 +22,7 @@ function AccountFields({
   formData,
 }: AccountFieldsProps) {
   const history = useHistory();
+
   return (
     <Container>
       <h1>Account Fields</h1>
@@ -47,7 +41,6 @@ function AccountFields({
             .email("Invalid email address")
             .max(50, "Must be 50 characters or less")
             .min(5, "Must be 5 characters or more")
-
             .required("Required"),
           password: Yup.string()
             .max(15, "Must be 15 characters or less")
@@ -66,7 +59,7 @@ function AccountFields({
           }, 1000);
         }}
       >
-        {({ isValid, dirty, isSubmitting }) => (
+        {({ isValid, dirty, isSubmitting, values, setFieldValue }) => (
           <Form>
             <div className="row">
               <label htmlFor="name">Name</label>
@@ -95,6 +88,28 @@ function AccountFields({
                 className="error"
                 component="div"
                 name="birth_date"
+              />
+            </div>
+            <div className="row">
+              <label htmlFor="profilePic">Profile Picture</label>
+              <input
+                name="profilePic"
+                type="file"
+                accept="image/*"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setFieldValue(
+                    "profilePic",
+                    event.currentTarget.files
+                      ? event.currentTarget.files[0]
+                      : new File([""], "")
+                  );
+                }}
+              />
+              <ImgPreview file={values.profilePic} />
+              <ErrorMessage
+                className="error"
+                component="div"
+                name="profilePic"
               />
             </div>
 

@@ -23,8 +23,10 @@ function Input(props: InputProps) {
       <input {...props} />
       {props.fieldErrors
         ? props.fieldErrors.length > 0
-          ? props.fieldErrors.map((error) => (
-              <p style={{ color: "red" }}>{error}</p>
+          ? props.fieldErrors.map((error, index) => (
+              <p key={index} style={{ color: "red" }}>
+                {error}
+              </p>
             ))
           : null
         : null}

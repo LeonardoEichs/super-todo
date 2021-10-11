@@ -25,12 +25,6 @@ interface SurveyProps {
   formData: any;
 }
 
-interface AccountFieldProps {
-  otherComments: string;
-  usePurpose: string;
-  otherProducts: OtherProducts[];
-}
-
 function SurveyFields({
   previousStep,
   nextStep,
@@ -71,7 +65,7 @@ function SurveyFields({
               </p>
               <div role="group" className="checkbox">
                 {Object.values(UsePurpose).map((purpose: string) => (
-                  <label>
+                  <label key={purpose}>
                     <Field type="radio" name="usePurpose" value={purpose} />
                     {purpose}
                   </label>
@@ -83,7 +77,7 @@ function SurveyFields({
               <p>Which other products do you use?</p>
               <div role="group" className="checkbox">
                 {Object.values(OtherProducts).map((product: any) => (
-                  <label>
+                  <label key={product}>
                     <Field
                       type="checkbox"
                       name="otherProducts"

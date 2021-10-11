@@ -12,6 +12,7 @@ interface FormDataProps {
   email: string;
   password: string;
   birth_date: Date;
+  profilePic: File;
   otherComments: string;
   usePurpose: string;
   otherProducts: string[];
@@ -22,6 +23,10 @@ function Confirmation({ previousStep, nextStep, formData }: ConfirmationProps) {
     <Container>
       <h1>Confirmation</h1>
       <div>
+        <p>
+          Profile Pic:{" "}
+          {formData.profilePic ? formData.profilePic.name : formData.profilePic}
+        </p>
         <p>Name: {formData.name}</p>
         <p>Username: {formData.username}</p>
         <p>Email: {formData.email}</p>
@@ -31,7 +36,7 @@ function Confirmation({ previousStep, nextStep, formData }: ConfirmationProps) {
         <p>Other products: </p>
         <ul>
           {formData.otherProducts.map((product) => (
-            <li>{product}</li>
+            <li key={product}>{product}</li>
           ))}
         </ul>
       </div>
