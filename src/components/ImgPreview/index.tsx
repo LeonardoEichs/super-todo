@@ -1,4 +1,4 @@
-import { Container } from "./styles";
+import { Container, UserImg } from "./styles";
 import { useState, useEffect } from "react";
 
 interface ImgPreviewProps {
@@ -26,7 +26,7 @@ function ImgPreview({ file }: ImgPreviewProps) {
     <>
       {thumb !== "" && (
         <Container>
-          <img src={thumb as string} alt={file.name} height={200} width={200} />
+          <UserImg imgObj={thumb as string} height={200} width={200} />
         </Container>
       )}
     </>

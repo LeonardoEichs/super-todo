@@ -1,4 +1,5 @@
 import { Container } from "./styles";
+import ImgPreview from "components/ImgPreview";
 
 interface ConfirmationProps {
   previousStep: any;
@@ -25,7 +26,11 @@ function Confirmation({ previousStep, nextStep, formData }: ConfirmationProps) {
       <div>
         <p>
           Profile Pic:{" "}
-          {formData.profilePic ? formData.profilePic.name : formData.profilePic}
+          {formData.profilePic ? (
+            <ImgPreview file={formData.profilePic} />
+          ) : (
+            <p>No profile picture</p>
+          )}
         </p>
         <p>Name: {formData.name}</p>
         <p>Username: {formData.username}</p>
