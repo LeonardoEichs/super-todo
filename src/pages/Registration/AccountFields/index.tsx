@@ -10,6 +10,7 @@ import { Container } from "./styles";
 interface AccountFieldsProps {
   nextStep: any;
   setFormData: any;
+  formData: any;
 }
 
 interface AccountFieldProps {
@@ -20,23 +21,19 @@ interface AccountFieldProps {
   birth_date: Date;
 }
 
-const defaultFormState: AccountFieldProps = {
-  name: "",
-  username: "",
-  email: "",
-  password: "",
-  birth_date: new Date(),
-};
-
 const today: Date = new Date();
 
-function AccountFields({ nextStep, setFormData }: AccountFieldsProps) {
+function AccountFields({
+  nextStep,
+  setFormData,
+  formData,
+}: AccountFieldsProps) {
   const history = useHistory();
   return (
     <Container>
       <h1>Account Fields</h1>
       <Formik
-        initialValues={defaultFormState}
+        initialValues={formData}
         validationSchema={Yup.object({
           name: Yup.string()
             .max(30, "Must be 30 characters or less")
@@ -86,13 +83,11 @@ function AccountFields({ nextStep, setFormData }: AccountFieldsProps) {
               <Field name="email" type="text" />
               <ErrorMessage className="error" component="div" name="email" />
             </div>
-
             <div className="row">
               <label htmlFor="password">Password</label>
               <Field name="password" type="password" />
               <ErrorMessage className="error" component="div" name="password" />
             </div>
-
             <div className="row">
               <label htmlFor="birth_date">Birth Date</label>
               <FormikDatePicker name="birth_date" maxDate={new Date()} />

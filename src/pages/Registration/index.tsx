@@ -30,7 +30,7 @@ const defaultFormState: FormDataProps = {
   password: "",
   birth_date: new Date(),
   otherComments: "",
-  usePurpose: "",
+  usePurpose: "Personal",
   otherProducts: [],
 };
 
@@ -43,6 +43,7 @@ function Registration() {
       case PageStep.ACCOUNT_FIELDS:
         return (
           <AccountFields
+            formData={formData}
             setFormData={setFormData}
             nextStep={() => setStep(PageStep.SURVEY_FIELDS)}
           />
@@ -53,6 +54,7 @@ function Registration() {
             setFormData={setFormData}
             previousStep={() => setStep(PageStep.ACCOUNT_FIELDS)}
             nextStep={() => setStep(PageStep.CONFIRMATION)}
+            formData={formData}
           />
         );
       case PageStep.CONFIRMATION:

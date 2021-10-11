@@ -22,6 +22,7 @@ interface SurveyProps {
   previousStep: any;
   nextStep: any;
   setFormData: any;
+  formData: any;
 }
 
 interface AccountFieldProps {
@@ -30,18 +31,17 @@ interface AccountFieldProps {
   otherProducts: OtherProducts[];
 }
 
-const defaultFormState: AccountFieldProps = {
-  otherComments: "",
-  usePurpose: UsePurpose.PERSONAL,
-  otherProducts: [],
-};
-
-function SurveyFields({ previousStep, nextStep, setFormData }: SurveyProps) {
+function SurveyFields({
+  previousStep,
+  nextStep,
+  setFormData,
+  formData,
+}: SurveyProps) {
   return (
     <Container>
       <h1>SurveyFields</h1>
       <Formik
-        initialValues={defaultFormState}
+        initialValues={formData}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             // alert(JSON.stringify(values, null, 2));
@@ -95,7 +95,7 @@ function SurveyFields({ previousStep, nextStep, setFormData }: SurveyProps) {
               </div>
             </div>
             <button onClick={previousStep}>Previous</button>
-            <button type="submit" disabled={!(isValid && dirty)}>
+            <button type="submit" disabled={!isValid}>
               {isSubmitting ? "Loading..." : "Continue"}
             </button>
           </Form>
