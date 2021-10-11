@@ -80,8 +80,8 @@ function Login() {
   // Check if there is no error
   const isEnabled =
     Object.values(formData).every((item) => item.length > 0) &&
-    Object.values(fieldErrors).every((value) => {
-      return value.length === 0;
+    Object.values(fieldErrors).every((errorArray) => {
+      return errorArray.length === 0;
     });
 
   return (
@@ -117,7 +117,7 @@ function Login() {
           {isLoading ? "Loading..." : "Login"}
         </button>
       </form>
-      <Link to="/register">Criar conta</Link>
+      <Link to="/registration">Criar conta</Link>
     </Container>
   );
 }

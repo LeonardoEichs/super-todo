@@ -3,11 +3,11 @@ import { ReactNode } from "react";
 import { Container } from "./styles";
 
 interface InputProps {
-  id: string;
   type: string;
   name: string;
   value: string;
-  onChange: any;
+  onChange(e?: React.ChangeEvent<HTMLInputElement>): void;
+  id?: string;
   placeholder?: string;
   labelContent?: string;
   fieldErrors?: string[];

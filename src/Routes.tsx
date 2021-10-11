@@ -5,7 +5,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import Login from "pages/Login";
-import Register from "pages/Register";
+import Registration from "pages/Registration";
 
 const Routes = () => {
   return (
@@ -13,7 +13,7 @@ const Routes = () => {
       <Switch>
         <Redirect exact from="/" to="/login" />
         <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
+        <Route path="/registration" component={Registration} />
       </Switch>
     </Router>
   );
