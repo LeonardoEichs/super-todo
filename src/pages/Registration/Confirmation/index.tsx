@@ -7,10 +7,14 @@ interface ConfirmationProps {
 }
 
 interface FormDataProps {
+  name: string;
   username: string;
   email: string;
   password: string;
   birth_date: Date;
+  otherComments: string;
+  usePurpose: string;
+  otherProducts: string[];
 }
 
 function Confirmation({ previousStep, nextStep, formData }: ConfirmationProps) {
@@ -18,9 +22,18 @@ function Confirmation({ previousStep, nextStep, formData }: ConfirmationProps) {
     <Container>
       <h1>Confirmation</h1>
       <div>
+        <p>Name: {formData.name}</p>
         <p>Username: {formData.username}</p>
         <p>Email: {formData.email}</p>
-        <p>Birth Date: {formData.birth_date}</p>
+        <p>Birth Date: {formData.birth_date.toISOString().split("T")[0]}</p>
+        <p>Other comments: {formData.otherComments}</p>
+        <p>Purpose: {formData.usePurpose}</p>
+        <p>Other products: </p>
+        <ul>
+          {formData.otherProducts.map((product) => (
+            <li>{product}</li>
+          ))}
+        </ul>
       </div>
       <button onClick={previousStep}>Previous</button>
       <button onClick={nextStep}>Continue</button>

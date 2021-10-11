@@ -9,9 +9,11 @@ import { Container } from "./styles";
 
 interface AccountFieldsProps {
   nextStep: any;
+  setFormData: any;
 }
 
 interface AccountFieldProps {
+  name: string;
   username: string;
   email: string;
   password: string;
@@ -19,15 +21,16 @@ interface AccountFieldProps {
 }
 
 const defaultFormState: AccountFieldProps = {
+  name: "",
   username: "",
   email: "",
   password: "",
-  birth_date: new Date(new Date().toDateString()),
+  birth_date: new Date(),
 };
 
 const today: Date = new Date();
 
-function AccountFields({ nextStep }: AccountFieldsProps) {
+function AccountFields({ nextStep, setFormData }: AccountFieldsProps) {
   const history = useHistory();
   return (
     <Container>
@@ -35,6 +38,10 @@ function AccountFields({ nextStep }: AccountFieldsProps) {
       <Formik
         initialValues={defaultFormState}
         validationSchema={Yup.object({
+          name: Yup.string()
+            .max(30, "Must be 30 characters or less")
+            .min(5, "Must be 5 characters or more")
+            .required("Required"),
           username: Yup.string()
             .max(15, "Must be 15 characters or less")
             .min(5, "Must be 5 characters or more")
@@ -55,15 +62,20 @@ function AccountFields({ nextStep }: AccountFieldsProps) {
         })}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-
+            // alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
+            setFormData(values);
             nextStep();
           }, 1000);
         }}
       >
-        {({ isValid, dirty }) => (
+        {({ isValid, dirty, isSubmitting }) => (
           <Form>
+            <div className="row">
+              <label htmlFor="name">Name</label>
+              <Field name="name" type="text" />
+              <ErrorMessage className="error" component="div" name="name" />
+            </div>
             <div className="row">
               <label htmlFor="username">Username</label>
               <Field name="username" type="text" />
@@ -93,7 +105,7 @@ function AccountFields({ nextStep }: AccountFieldsProps) {
 
             <button onClick={() => history.push("/login")}>Back</button>
             <button type="submit" disabled={!(isValid && dirty)}>
-              Continue
+              {isSubmitting ? "Loading..." : "Continue"}
             </button>
           </Form>
         )}

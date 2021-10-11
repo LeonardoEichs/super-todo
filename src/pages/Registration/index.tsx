@@ -13,17 +13,25 @@ enum PageStep {
 }
 
 interface FormDataProps {
+  name: string;
   username: string;
   email: string;
   password: string;
   birth_date: Date;
+  otherComments: string;
+  usePurpose: string;
+  otherProducts: string[];
 }
 
 const defaultFormState: FormDataProps = {
+  name: "",
   username: "",
   email: "",
   password: "",
   birth_date: new Date(),
+  otherComments: "",
+  usePurpose: "",
+  otherProducts: [],
 };
 
 function Registration() {
@@ -34,11 +42,15 @@ function Registration() {
     switch (step) {
       case PageStep.ACCOUNT_FIELDS:
         return (
-          <AccountFields nextStep={() => setStep(PageStep.SURVEY_FIELDS)} />
+          <AccountFields
+            setFormData={setFormData}
+            nextStep={() => setStep(PageStep.SURVEY_FIELDS)}
+          />
         );
       case PageStep.SURVEY_FIELDS:
         return (
           <SurveyFields
+            setFormData={setFormData}
             previousStep={() => setStep(PageStep.ACCOUNT_FIELDS)}
             nextStep={() => setStep(PageStep.CONFIRMATION)}
           />
