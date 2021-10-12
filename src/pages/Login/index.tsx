@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
 
 import Input from "components/Input";
@@ -39,6 +39,7 @@ function Login() {
   const [fieldErrors, setFieldErrors] = useState<ErrorField>(
     defaultFieldErrorsState
   );
+  const history = useHistory();
 
   const login = (e: any) => {
     (async () => {
@@ -51,6 +52,8 @@ function Login() {
         setIsValidLogin(true);
         setFormData(defaultFormState);
         setFieldErrors(defaultFieldErrorsState);
+        setErrors([]);
+        history.push("/todo");
       } catch (err: any) {
         err.errors?.length > 0
           ? setErrors(err.errors)

@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Login from "pages/Login";
 import Registration from "pages/Registration";
+import ToDo from "pages/ToDo";
 
 const Routes = () => {
   return (
@@ -14,6 +15,7 @@ const Routes = () => {
         <Redirect exact from="/" to="/login" />
         <Route path="/login" component={Login} />
         <Route path="/registration" component={Registration} />
+        <Route path="/todo" component={ToDo} />
       </Switch>
     </Router>
   );
