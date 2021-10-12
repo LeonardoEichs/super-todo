@@ -5,33 +5,19 @@ import TodosService from "services/todos.services";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import Modal from "components/Modal";
+import EditModal from "pages/ToDo/EditModal";
+import CreateModal from "pages/ToDo/CreateModal";
+import DeleteModal from "components/DeleteModal";
+
 import { Container } from "./styles";
 
-enum TodoStatus {
-  DONE = "done",
-  DOING = "doing",
-  TODO = "todo",
-}
+import getStatusColor from "utils/getStatusColor";
 
-const getStatusColor = (status: string) => {
-  switch (status) {
-    case "done":
-      return "green";
-    case "doing":
-      return "orange";
-    case "todo":
-      return "red";
-    default:
-      return "black";
-  }
-};
+import { TodoStatus } from "ts/enums/todo";
+import { TodoProp } from "ts/types/todo";
 
-interface TodoProp {
-  id: number;
-  title: string;
-  description: string;
-  status: TodoStatus;
-}
+import generateRandomId from "utils/generateRandomId";
 
 interface EditTodoProp {
   title?: string;
@@ -41,7 +27,7 @@ interface EditTodoProp {
 
 const defaultTodos: TodoProp[] = [
   {
-    id: 0,
+    id: generateRandomId(),
     title: "",
     description: "",
     status: TodoStatus.TODO,
@@ -49,10 +35,14 @@ const defaultTodos: TodoProp[] = [
 ];
 
 function ToDo() {
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [todos, setTodos] = useState<TodoProp[]>(defaultTodos);
+
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
 
   useEffect(() => {
     (async () => {
@@ -71,10 +61,10 @@ function ToDo() {
     })();
   }, [searchTerm]);
 
-  const deleteTodo = async (id: number) => {
+  const deleteTodo = async (id: string) => {
     await TodosService.delete(id);
     setTodos(todos.filter((todo) => todo.id !== id));
-    toast.warn(`Deletado Todo Id: ${id}!`, {
+    toast.warn(`Deletado!`, {
       position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -85,14 +75,15 @@ function ToDo() {
     });
   };
 
-  const editTodo = async (id: number, body: EditTodoProp) => {
-    await TodosService.update(id, body);
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id === id) return { ...todo, ...body };
-        return todo;
-      })
-    );
+  const editTodo = async (id: string, body: EditTodoProp) => {
+    handleShowModal();
+    // await TodosService.update(id, body);
+    // setTodos(
+    //   todos.map((todo) => {
+    //     if (todo.id === id) return { ...todo, ...body };
+    //     return todo;
+    //   })
+    // );
   };
 
   return (
@@ -147,6 +138,17 @@ function ToDo() {
         draggable={false}
         pauseOnHover={false}
       />
+      {showModal ? (
+        <Modal>
+          {/* <EditModal
+            setTodos={setTodos}
+            onClose={handleCloseModal}
+            info={todos[0]}
+          /> */}
+          {/* <DeleteModal onClose={handleCloseModal} /> */}
+          <CreateModal onClose={handleCloseModal} setTodos={setTodos} />
+        </Modal>
+      ) : null}
     </Container>
   );
 }

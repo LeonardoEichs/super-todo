@@ -8,6 +8,12 @@ interface EditTodoProp {
   status?: TodoStatus;
 }
 
+interface CreateTodoProp {
+  title: string;
+  description: string;
+  status: TodoStatus;
+}
+
 enum TodoStatus {
   DONE = "done",
   DOING = "doing",
@@ -23,11 +29,15 @@ class TodosService {
     return await axios.get(`${URL}?q=${searchTerm}`);
   }
 
-  async update(id: number, data: EditTodoProp) {
+  async update(id: string, data: EditTodoProp) {
     return await axios.patch(`${URL}/${id}`, data);
   }
 
-  async delete(id: number) {
+  async create(data: CreateTodoProp) {
+    return await axios.post(`${URL}`, data);
+  }
+
+  async delete(id: string) {
     return await axios.delete(`${URL}/${id}`);
   }
 }
