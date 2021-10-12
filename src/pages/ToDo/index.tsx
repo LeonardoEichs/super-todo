@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 
 import TodosService from "services/todos.services";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { Container } from "./styles";
 
 enum TodoStatus {
@@ -71,6 +74,15 @@ function ToDo() {
   const deleteTodo = async (id: number) => {
     await TodosService.delete(id);
     setTodos(todos.filter((todo) => todo.id !== id));
+    toast.warn(`Deletado Todo Id: ${id}!`, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+    });
   };
 
   const editTodo = async (id: number, body: EditTodoProp) => {
@@ -124,6 +136,17 @@ function ToDo() {
           </div>
         )}
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover={false}
+      />
     </Container>
   );
 }
