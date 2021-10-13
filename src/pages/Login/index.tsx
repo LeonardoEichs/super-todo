@@ -120,7 +120,7 @@ function Login() {
           fieldErrors={fieldErrors.password}
           required
         />
-        <button type="submit" disabled={!isEnabled}>
+        <button className={"primary"} type="submit" disabled={!isEnabled}>
           {isLoading ? "Loading..." : "Login"}
         </button>
       </form>
