@@ -1,4 +1,4 @@
-import { Container } from "./styles";
+import { ModalContainer, ButtonContainer } from "../styles";
 
 import { useState } from "react";
 
@@ -62,8 +62,11 @@ function CreateModal({ onClose, setTodos }: CreateModalProp) {
   };
 
   return (
-    <Container>
+    <ModalContainer>
       <h1>Create Todo</h1>
+      <hr
+        style={{ border: "0.5px solid var(--gray-100)", margin: "1.5rem 0" }}
+      />
       <div className="row">
         <label htmlFor="title">Title</label>
         <input
@@ -92,11 +95,13 @@ function CreateModal({ onClose, setTodos }: CreateModalProp) {
         </select>
       </div>
       <hr />
-      <button onClick={onClose}>Close</button>
-      <button onClick={() => createTodo()}>
-        {isLoading ? "Loading..." : "Create"}
-      </button>
-    </Container>
+      <ButtonContainer>
+        <button onClick={onClose}>Close</button>
+        <button onClick={() => createTodo()}>
+          {isLoading ? "Loading..." : "Create"}
+        </button>
+      </ButtonContainer>
+    </ModalContainer>
   );
 }
 

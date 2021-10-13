@@ -4,7 +4,7 @@ import { Container, Outside } from "./styles";
 
 import ReactDOM from "react-dom";
 
-const modalRoot: HTMLElement | null = document.getElementById("modal-root");
+const modalRoot: HTMLElement | null = document.getElementById("root");
 
 interface ModalProps {
   children: ReactNode;

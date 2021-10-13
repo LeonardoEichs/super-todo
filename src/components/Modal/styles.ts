@@ -20,7 +20,7 @@ export const Container = styled.div`
   min-height: 150px;
   margin: 1rem;
   position: relative;
-  min-width: 300px;
+  min-width: 450px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   justify-self: center;
 `;

@@ -1,4 +1,4 @@
-import { Container } from "./styles";
+import { ModalContainer, ButtonContainer } from "../styles";
 
 import TodosService from "services/todos.services";
 
@@ -32,12 +32,18 @@ function DeleteModal({ onClose, setTodos, activeItem }: DeleteModelProps) {
   };
 
   return (
-    <Container>
+    <ModalContainer>
       <h1>Delete</h1>
-      <h2>Are you sure you want to delete?</h2>
-      <button onClick={onClose}>No</button>
-      <button onClick={deleteItem}>Delete</button>
-    </Container>
+      <div className="row">
+        <p>Are you sure you want to delete?</p>
+      </div>
+      <ButtonContainer>
+        <button onClick={onClose}>No</button>
+        <button className={"danger"} onClick={deleteItem}>
+          Delete
+        </button>
+      </ButtonContainer>
+    </ModalContainer>
   );
 }
 

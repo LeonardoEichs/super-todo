@@ -10,7 +10,15 @@ import EditModal from "pages/ToDo/EditModal";
 import CreateModal from "pages/ToDo/CreateModal";
 import DeleteModal from "pages/ToDo/DeleteModal";
 
-import { Container } from "./styles";
+import {
+  Container,
+  TodoList,
+  SearchInput,
+  CreateTodoButton,
+  ListItem,
+  ListItemHeader,
+  ListItemHeaderButtons,
+} from "./styles";
 
 import getStatusColor from "utils/getStatusColor";
 
@@ -116,17 +124,20 @@ function ToDo() {
   return (
     <Container>
       <h1>ToDo</h1>
-      <input
+      <SearchInput
         type="text"
         name="search"
         id="search"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <button onClick={() => setShowModal(ModalBody.CREATE)}>
+      <CreateTodoButton
+        className={"primary"}
+        onClick={() => setShowModal(ModalBody.CREATE)}
+      >
         Create new Todo
-      </button>
-      <div className="todo-list">
+      </CreateTodoButton>
+      <TodoList>
         {isLoading ? (
           <p>Loading...</p>
         ) : (
@@ -135,22 +146,38 @@ function ToDo() {
               <p>{error}</p>
             ) : (
               todos.map((todo) => (
-                <div key={todo.id}>
-                  <h3 style={{ display: "inline-block", marginRight: "1rem" }}>
-                    {todo.title} -{" "}
-                    <span style={{ color: getStatusColor(todo.status) }}>
-                      {todo.status}
-                    </span>
-                  </h3>
-                  <button onClick={() => deleteTodo(todo.id)}>x</button>
-                  <button onClick={() => editTodo(todo.id)}>Edit</button>
+                <ListItem key={todo.id}>
+                  <ListItemHeader>
+                    <h3
+                      style={{ display: "inline-block", marginRight: "1rem" }}
+                    >
+                      {todo.title} -{" "}
+                      <span
+                        style={{
+                          textTransform: "uppercase",
+                          color: getStatusColor(todo.status),
+                        }}
+                      >
+                        {todo.status}
+                      </span>
+                    </h3>
+                    <ListItemHeaderButtons>
+                      <button
+                        className={"danger"}
+                        onClick={() => deleteTodo(todo.id)}
+                      >
+                        Delete
+                      </button>
+                      <button onClick={() => editTodo(todo.id)}>Edit</button>
+                    </ListItemHeaderButtons>
+                  </ListItemHeader>
                   <p>{todo.description}</p>
-                </div>
+                </ListItem>
               ))
             )}
           </div>
         )}
-      </div>
+      </TodoList>
       <ToastContainer
         position="bottom-right"
         autoClose={5000}

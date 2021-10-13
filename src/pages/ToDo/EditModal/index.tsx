@@ -1,4 +1,4 @@
-import { Container } from "./styles";
+import { ModalContainer, ButtonContainer } from "../styles";
 
 import { useState } from "react";
 
@@ -53,8 +53,11 @@ function EditModal({ activeItem, onClose, setTodos }: EditModalProp) {
   };
 
   return (
-    <Container>
-      <h1>Edit activeItem</h1>
+    <ModalContainer>
+      <h1>Edit</h1>
+      <hr
+        style={{ border: "0.5px solid var(--gray-100)", margin: "1.5rem 0" }}
+      />
       <div className="row">
         <label htmlFor="id">ID</label>
         <input type="text" name="id" value={body.id} disabled />
@@ -87,9 +90,13 @@ function EditModal({ activeItem, onClose, setTodos }: EditModalProp) {
         </select>
       </div>
       <hr />
-      <button onClick={onClose}>Close</button>
-      <button onClick={() => saveChanges(body)}>Save</button>
-    </Container>
+      <ButtonContainer>
+        <button onClick={onClose}>Close</button>
+        <button className={"primary"} onClick={() => saveChanges(body)}>
+          Save
+        </button>
+      </ButtonContainer>
+    </ModalContainer>
   );
 }
 
