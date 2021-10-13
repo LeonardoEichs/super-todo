@@ -49,7 +49,7 @@ function CreateModal({ onClose, setTodos }: CreateModalProp) {
     const todosFetch = await TodosService.getAll();
     setTodos(todosFetch.data);
     setIsLoading(false);
-    toast.warn(`Criado ${body.title}!`, {
+    toast.warn(`Created ${body.title}!`, {
       position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,

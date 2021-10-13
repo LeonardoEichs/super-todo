@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Modal from "components/Modal";
 import EditModal from "pages/ToDo/EditModal";
 import CreateModal from "pages/ToDo/CreateModal";
-import DeleteModal from "components/DeleteModal";
+import DeleteModal from "pages/ToDo/DeleteModal";
 
 import { Container } from "./styles";
 
@@ -17,32 +17,41 @@ import getStatusColor from "utils/getStatusColor";
 import { TodoStatus } from "ts/enums/todo";
 import { TodoProp } from "ts/types/todo";
 
-import generateRandomId from "utils/generateRandomId";
-
-interface EditTodoProp {
-  title?: string;
-  description?: string;
-  status?: TodoStatus;
-}
-
-const defaultTodos: TodoProp[] = [
+const defaultTodosList: TodoProp[] = [
   {
-    id: generateRandomId(),
+    id: "",
     title: "",
     description: "",
     status: TodoStatus.TODO,
   },
 ];
 
+const defaultTodos: TodoProp = {
+  id: "",
+  title: "",
+  description: "",
+  status: TodoStatus.TODO,
+};
+
+enum ModalBody {
+  NONE,
+  CREATE,
+  EDIT,
+  DELETE,
+}
+
 function ToDo() {
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<ModalBody>(ModalBody.NONE);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [todos, setTodos] = useState<TodoProp[]>(defaultTodos);
+  const [todos, setTodos] = useState<TodoProp[]>(defaultTodosList);
+  const [activeItem, setActiveItem] = useState<TodoProp>(defaultTodos);
 
-  const handleShowModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
+  const handleCloseModal = () => {
+    setActiveItem(defaultTodos);
+    setShowModal(ModalBody.NONE);
+  };
 
   useEffect(() => {
     (async () => {
@@ -62,28 +71,46 @@ function ToDo() {
   }, [searchTerm]);
 
   const deleteTodo = async (id: string) => {
-    await TodosService.delete(id);
-    setTodos(todos.filter((todo) => todo.id !== id));
-    toast.warn(`Deletado!`, {
-      position: "bottom-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: false,
-      progress: undefined,
-    });
+    const todoWithItem: TodoProp | undefined = todos.find(
+      (todo) => todo.id === id
+    );
+    if (!todoWithItem) return null;
+    setActiveItem(todoWithItem);
+    setShowModal(ModalBody.DELETE);
   };
 
-  const editTodo = async (id: string, body: EditTodoProp) => {
-    handleShowModal();
-    // await TodosService.update(id, body);
-    // setTodos(
-    //   todos.map((todo) => {
-    //     if (todo.id === id) return { ...todo, ...body };
-    //     return todo;
-    //   })
-    // );
+  const editTodo = async (id: string) => {
+    const todoWithItem: TodoProp | undefined = todos.find(
+      (todo) => todo.id === id
+    );
+    if (!todoWithItem) return null;
+    setActiveItem(todoWithItem);
+    setShowModal(ModalBody.EDIT);
+  };
+
+  const chooseModal = (type: ModalBody) => {
+    switch (type) {
+      case ModalBody.EDIT:
+        return (
+          <EditModal
+            setTodos={setTodos}
+            onClose={handleCloseModal}
+            activeItem={activeItem}
+          />
+        );
+      case ModalBody.CREATE:
+        return <CreateModal onClose={handleCloseModal} setTodos={setTodos} />;
+      case ModalBody.DELETE:
+        return (
+          <DeleteModal
+            onClose={handleCloseModal}
+            setTodos={setTodos}
+            activeItem={activeItem}
+          />
+        );
+      default:
+        return null;
+    }
   };
 
   return (
@@ -96,6 +123,9 @@ function ToDo() {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
+      <button onClick={() => setShowModal(ModalBody.CREATE)}>
+        Create new Todo
+      </button>
       <div className="todo-list">
         {isLoading ? (
           <p>Loading...</p>
@@ -113,13 +143,7 @@ function ToDo() {
                     </span>
                   </h3>
                   <button onClick={() => deleteTodo(todo.id)}>x</button>
-                  <button
-                    onClick={() =>
-                      editTodo(todo.id, { status: TodoStatus.DONE })
-                    }
-                  >
-                    Edit
-                  </button>
+                  <button onClick={() => editTodo(todo.id)}>Edit</button>
                   <p>{todo.description}</p>
                 </div>
               ))
@@ -138,16 +162,8 @@ function ToDo() {
         draggable={false}
         pauseOnHover={false}
       />
-      {showModal ? (
-        <Modal>
-          {/* <EditModal
-            setTodos={setTodos}
-            onClose={handleCloseModal}
-            info={todos[0]}
-          /> */}
-          {/* <DeleteModal onClose={handleCloseModal} /> */}
-          <CreateModal onClose={handleCloseModal} setTodos={setTodos} />
-        </Modal>
+      {showModal !== ModalBody.NONE ? (
+        <Modal>{chooseModal(showModal)}</Modal>
       ) : null}
     </Container>
   );

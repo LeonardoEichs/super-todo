@@ -10,15 +10,15 @@ import { TodoStatus } from "ts/enums/todo";
 import { TodoProp } from "ts/types/todo";
 
 interface EditModalProp {
-  info: TodoProp;
+  activeItem: TodoProp;
   onClose: any;
   setTodos: any;
 }
 
 type EventTargetDestructuring = { name: string; value: string };
 
-function EditModal({ info, onClose, setTodos }: EditModalProp) {
-  const [body, setBody] = useState<TodoProp>(info);
+function EditModal({ activeItem, onClose, setTodos }: EditModalProp) {
+  const [body, setBody] = useState<TodoProp>(activeItem);
 
   const editValues = (
     e: React.ChangeEvent<
@@ -39,7 +39,7 @@ function EditModal({ info, onClose, setTodos }: EditModalProp) {
         return todo;
       });
     });
-    toast.warn(`Editado!`, {
+    toast.warn(`Edited!`, {
       position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -54,7 +54,7 @@ function EditModal({ info, onClose, setTodos }: EditModalProp) {
 
   return (
     <Container>
-      <h1>Edit Info</h1>
+      <h1>Edit activeItem</h1>
       <div className="row">
         <label htmlFor="id">ID</label>
         <input type="text" name="id" value={body.id} disabled />
