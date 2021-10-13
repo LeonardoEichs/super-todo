@@ -1,4 +1,4 @@
-import { Container } from "./styles";
+import { Container, ButtonContainer } from "../styles";
 import ImgPreview from "components/ImgPreview";
 
 interface ConfirmationProps {
@@ -24,29 +24,54 @@ function Confirmation({ previousStep, nextStep, formData }: ConfirmationProps) {
     <Container>
       <h1>Confirmation</h1>
       <div>
-        <p>
-          Profile Pic:{" "}
-          {formData.profilePic ? (
-            <ImgPreview file={formData.profilePic} />
-          ) : (
-            <p>No profile picture</p>
-          )}
-        </p>
-        <p>Name: {formData.name}</p>
-        <p>Username: {formData.username}</p>
-        <p>Email: {formData.email}</p>
-        <p>Birth Date: {formData.birth_date.toISOString().split("T")[0]}</p>
-        <p>Other comments: {formData.otherComments}</p>
-        <p>Purpose: {formData.usePurpose}</p>
-        <p>Other products: </p>
-        <ul>
-          {formData.otherProducts.map((product) => (
-            <li key={product}>{product}</li>
-          ))}
-        </ul>
+        <div style={{ float: "right" }} className="row">
+          {formData.profilePic.name ? (
+            <>
+              <label>Profile Pic:</label>
+              <ImgPreview file={formData.profilePic} />
+            </>
+          ) : null}
+        </div>
+
+        <div className="row">
+          <label>Name:</label>
+          <p>{formData.name}</p>
+        </div>
+        <div className="row">
+          <label>Username:</label>
+          <p>{formData.username}</p>
+        </div>
+        <div className="row">
+          <label>Email:</label>
+          <p>{formData.email}</p>
+        </div>
+        <div className="row">
+          <label>Birth Date:</label>
+          <p>{formData.birth_date.toISOString().split("T")[0]}</p>
+        </div>
+        <div className="row">
+          <label>Other comments:</label>
+          <p>{formData.otherComments}</p>
+        </div>
+        <div className="row">
+          <label>Purpose:</label>
+          <p>{formData.usePurpose}</p>
+        </div>
+        <div className="row">
+          <label>Other products:</label>
+          <ul>
+            {formData.otherProducts.map((product) => (
+              <li key={product}>{product}</li>
+            ))}
+          </ul>{" "}
+        </div>
       </div>
-      <button onClick={previousStep}>Previous</button>
-      <button onClick={nextStep}>Continue</button>
+      <ButtonContainer>
+        <button onClick={previousStep}>Previous</button>
+        <button className={"primary"} onClick={nextStep}>
+          Continue
+        </button>
+      </ButtonContainer>
     </Container>
   );
 }

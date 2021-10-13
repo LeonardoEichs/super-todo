@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
         --gray-200: #afb2b1;
         --gray-500: #808080;
         --gray-800: #494d4b;
+        --primary-50: #69a8db;
         --primary: #4299e1;
         --primary-500: #2b6cb0;
         --danger: #D9534F;
@@ -89,6 +90,10 @@ const GlobalStyle = createGlobalStyle`
             border: none;
             &:hover {
                 background: var(--primary-500);
+            }
+            &:disabled {
+                color: var(--gray-100);
+                background: var(--primary-50);
             }
         }
 

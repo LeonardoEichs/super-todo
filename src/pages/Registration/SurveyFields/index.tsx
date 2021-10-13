@@ -2,9 +2,7 @@ import { useHistory } from "react-router-dom";
 
 import { Formik, Field, Form, ErrorMessage } from "formik";
 
-import * as Yup from "yup";
-
-import { Container } from "./styles";
+import { Container, ButtonContainer } from "../styles";
 
 enum UsePurpose {
   PERSONAL = "Personal",
@@ -88,10 +86,12 @@ function SurveyFields({
                 ))}
               </div>
             </div>
-            <button onClick={previousStep}>Previous</button>
-            <button type="submit" disabled={!isValid}>
-              {isSubmitting ? "Loading..." : "Continue"}
-            </button>
+            <ButtonContainer>
+              <button onClick={previousStep}>Previous</button>
+              <button className={"primary"} type="submit" disabled={!isValid}>
+                {isSubmitting ? "Loading..." : "Continue"}
+              </button>
+            </ButtonContainer>
           </Form>
         )}
       </Formik>

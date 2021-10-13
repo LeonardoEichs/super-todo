@@ -6,7 +6,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 
 import * as Yup from "yup";
 
-import { Container } from "./styles";
+import { Container, ButtonContainer } from "../styles";
 
 interface AccountFieldsProps {
   nextStep: any;
@@ -93,6 +93,8 @@ function AccountFields({
             <div className="row">
               <label htmlFor="profilePic">Profile Picture</label>
               <input
+                id="profilePic"
+                style={{ display: "none" }}
                 name="profilePic"
                 type="file"
                 accept="image/*"
@@ -105,6 +107,14 @@ function AccountFields({
                   );
                 }}
               />
+              <input
+                className={"inputButton"}
+                type="button"
+                value="Browse..."
+                onClick={() => {
+                  return document.getElementById("profilePic")?.click();
+                }}
+              />
               <ImgPreview file={values.profilePic} />
               <ErrorMessage
                 className="error"
@@ -112,11 +122,17 @@ function AccountFields({
                 name="profilePic"
               />
             </div>
-
-            <button onClick={() => history.push("/login")}>Back</button>
-            <button type="submit" disabled={!(isValid && dirty)}>
-              {isSubmitting ? "Loading..." : "Continue"}
-            </button>
+            <ButtonContainer>
+              {" "}
+              <button onClick={() => history.push("/login")}>Back</button>
+              <button
+                className={"primary"}
+                type="submit"
+                disabled={!(isValid && dirty)}
+              >
+                {isSubmitting ? "Loading..." : "Continue"}
+              </button>
+            </ButtonContainer>
           </Form>
         )}
       </Formik>
