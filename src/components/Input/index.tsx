@@ -24,7 +24,10 @@ function Input(props: InputProps) {
       {props.fieldErrors
         ? props.fieldErrors.length > 0
           ? props.fieldErrors.map((error, index) => (
-              <p key={index} style={{ color: "red" }}>
+              <p
+                key={index}
+                style={{ fontSize: "0.8rem", marginTop: "1rem", color: "red" }}
+              >
                 {error}
               </p>
             ))

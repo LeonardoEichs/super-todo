@@ -79,10 +79,10 @@ const GlobalStyle = createGlobalStyle`
         margin: 0.25rem;
         border: 1px solid var(--gray-100);
         background-color: var(--white);
+        cursor: pointer;
         &:hover {
             background: var(--gray-50);
         }
-        cursor: pointer;
 
         &.primary {
             background: var(--primary);
@@ -94,6 +94,7 @@ const GlobalStyle = createGlobalStyle`
             &:disabled {
                 color: var(--gray-100);
                 background: var(--primary-50);
+                cursor: not-allowed;
             }
         }
 
