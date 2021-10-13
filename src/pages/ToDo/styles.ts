@@ -1,10 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  h1 {
-    margin-bottom: 2.5rem;
-  }
-`;
+export const Container = styled.div``;
 
 export const SearchInput = styled.input`
   width: max(480px, 40%);

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import TodosService from "services/todos.services";
 
@@ -123,7 +124,12 @@ function ToDo() {
 
   return (
     <Container>
-      <h1>ToDo</h1>
+      <ListItemHeader>
+        <h1>ToDo</h1>
+        <Link to="/login">
+          <button>Logout</button>
+        </Link>
+      </ListItemHeader>
       <SearchInput
         type="text"
         name="search"
