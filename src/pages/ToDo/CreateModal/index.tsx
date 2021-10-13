@@ -94,10 +94,10 @@ function CreateModal({ onClose, setTodos }: CreateModalProp) {
           ))}
         </select>
       </div>
-      <hr />
+      <hr style={{ border: "1px solid var(--gray-100)", margin: "1.5rem 0" }} />
       <ButtonContainer>
         <button onClick={onClose}>Close</button>
-        <button onClick={() => createTodo()}>
+        <button className={"primary"} onClick={() => createTodo()}>
           {isLoading ? "Loading..." : "Create"}
         </button>
       </ButtonContainer>

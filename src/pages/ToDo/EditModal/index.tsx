@@ -89,7 +89,7 @@ function EditModal({ activeItem, onClose, setTodos }: EditModalProp) {
           ))}
         </select>
       </div>
-      <hr />
+      <hr style={{ border: "1px solid var(--gray-100)", margin: "1.5rem 0" }} />
       <ButtonContainer>
         <button onClick={onClose}>Close</button>
         <button className={"primary"} onClick={() => saveChanges(body)}>

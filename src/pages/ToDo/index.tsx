@@ -135,7 +135,7 @@ function ToDo() {
         className={"primary"}
         onClick={() => setShowModal(ModalBody.CREATE)}
       >
-        Create new Todo
+        Create New Todo
       </CreateTodoButton>
       <TodoList>
         {isLoading ? (
