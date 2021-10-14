@@ -1,22 +1,12 @@
 import { Container, ButtonContainer } from "../styles";
 import ImgPreview from "components/ImgPreview";
 
-interface ConfirmationProps {
-  previousStep: any;
-  nextStep: any;
-  formData: FormDataProps;
-}
+import { FormDataProps } from "ts/types/register";
 
-interface FormDataProps {
-  name: string;
-  username: string;
-  email: string;
-  password: string;
-  birth_date: Date;
-  profilePic: File;
-  otherComments: string;
-  usePurpose: string;
-  otherProducts: string[];
+interface ConfirmationProps {
+  previousStep: () => void;
+  nextStep: () => void;
+  formData: FormDataProps;
 }
 
 function Confirmation({ previousStep, nextStep, formData }: ConfirmationProps) {

@@ -4,14 +4,18 @@ import ImgPreview from "components/ImgPreview";
 
 import { Formik, Field, Form, ErrorMessage } from "formik";
 
+import { FormDataProps } from "ts/types/register";
+
 import * as Yup from "yup";
 
 import { Container, ButtonContainer } from "../styles";
 
 interface AccountFieldsProps {
-  nextStep: any;
-  setFormData: any;
-  formData: any;
+  nextStep: () => void;
+  setFormData: (
+    value: FormDataProps | ((prevState: FormDataProps) => FormDataProps)
+  ) => void;
+  formData: FormDataProps;
 }
 
 const today: Date = new Date();

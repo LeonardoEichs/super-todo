@@ -8,7 +8,7 @@ const modalRoot: HTMLElement | null = document.getElementById("root");
 
 interface ModalProps {
   children: ReactNode;
-  onClose?: any;
+  onClose?: () => void;
 }
 
 const Modal = ({ children, onClose }: ModalProps) =>

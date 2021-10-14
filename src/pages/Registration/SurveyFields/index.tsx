@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { FormDataProps } from "ts/types/register";
 
 import { Formik, Field, Form, ErrorMessage } from "formik";
 
@@ -17,10 +17,12 @@ enum OtherProducts {
 }
 
 interface SurveyProps {
-  previousStep: any;
-  nextStep: any;
-  setFormData: any;
-  formData: any;
+  previousStep: () => void;
+  nextStep: () => void;
+  setFormData: (
+    value: FormDataProps | ((prevState: FormDataProps) => FormDataProps)
+  ) => void;
+  formData: FormDataProps;
 }
 
 function SurveyFields({
@@ -38,7 +40,7 @@ function SurveyFields({
           setTimeout(() => {
             // alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
-            setFormData((prevState: any) => {
+            setFormData((prevState: FormDataProps) => {
               return { ...prevState, ...values };
             });
             nextStep();
@@ -74,7 +76,7 @@ function SurveyFields({
             <div className="row">
               <p>Which other products do you use?</p>
               <div role="group" className="checkbox">
-                {Object.values(OtherProducts).map((product: any) => (
+                {Object.values(OtherProducts).map((product: OtherProducts) => (
                   <label key={product}>
                     <Field
                       type="checkbox"

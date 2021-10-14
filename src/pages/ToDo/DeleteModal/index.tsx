@@ -8,8 +8,10 @@ import { toast } from "react-toastify";
 
 interface DeleteModelProps {
   activeItem: TodoProp;
-  onClose: any;
-  setTodos: any;
+  onClose: () => void;
+  setTodos: (
+    value: TodoProp[] | ((prevState: TodoProp[]) => TodoProp[])
+  ) => void;
 }
 
 function DeleteModal({ onClose, setTodos, activeItem }: DeleteModelProps) {

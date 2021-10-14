@@ -12,8 +12,10 @@ import { TodoProp } from "ts/types/todo";
 import generateRandomId from "utils/generateRandomId";
 
 interface CreateModalProp {
-  onClose: any;
-  setTodos: any;
+  onClose: () => void;
+  setTodos: (
+    value: TodoProp[] | ((prevState: TodoProp[]) => TodoProp[])
+  ) => void;
 }
 
 type EventTargetDestructuring = { name: string; value: string };

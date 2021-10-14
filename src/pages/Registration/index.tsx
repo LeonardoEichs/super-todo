@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Container } from "./styles";
+
+import { FormDataProps } from "ts/types/register";
+
 import AccountFields from "pages/Registration/AccountFields";
 import SurveyFields from "pages/Registration/SurveyFields";
 import Confirmation from "pages/Registration/Confirmation";
@@ -10,18 +13,6 @@ enum PageStep {
   SURVEY_FIELDS,
   CONFIRMATION,
   SUCCESS,
-}
-
-interface FormDataProps {
-  name: string;
-  username: string;
-  email: string;
-  password: string;
-  birth_date: Date;
-  profilePic: File;
-  otherComments: string;
-  usePurpose: string;
-  otherProducts: string[];
 }
 
 const defaultFormState: FormDataProps = {

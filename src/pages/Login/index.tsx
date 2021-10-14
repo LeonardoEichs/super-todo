@@ -41,7 +41,7 @@ function Login() {
   );
   const history = useHistory();
 
-  const login = (e: any) => {
+  const login = (e: React.FormEvent<HTMLFormElement>) => {
     (async () => {
       e.preventDefault();
 

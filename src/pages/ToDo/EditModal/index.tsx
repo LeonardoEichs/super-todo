@@ -11,8 +11,10 @@ import { TodoProp } from "ts/types/todo";
 
 interface EditModalProp {
   activeItem: TodoProp;
-  onClose: any;
-  setTodos: any;
+  onClose: () => void;
+  setTodos: (
+    value: TodoProp[] | ((prevState: TodoProp[]) => TodoProp[])
+  ) => void;
 }
 
 type EventTargetDestructuring = { name: string; value: string };
