@@ -1864,6 +1864,16 @@
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.9.tgz#1cfb6d60ef3822c589f18e70f8b12f9a28ce8724"
   integrity sha512-MUc6zSmU3tEVnkQ78q0peeEjKWPUADMlC/t++2bI8WnAG2tvYRPIgHG8lWkXwqc8MsUF6Z2MOf+Mh5sazOmhiQ==
 
+"@types/history@^2.0.45":
+  version "2.0.51"
+  resolved "https://registry.yarnpkg.com/@types/history/-/history-2.0.51.tgz#fbeb15d5d87592b21d92da23347361f151d507ec"
+  integrity sha512-B5YRwLxbpFlmiKcOYsvNIcFT0GYNIGsYC1lLFqoiUeHdTzfGjz1NABo//FuPc/fQAdpGdq4pPSug/9eayOi1yg==
+
+"@types/history@^3":
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/@types/history/-/history-3.2.5.tgz#be614208f1a10a20c414b4d3762d1f2b65b53ae4"
+  integrity sha512-TqWYI0mlqS5qhH8MHgJJs0RcgvvZLxkn0bi2qK07liZqP7M9rl1kpJ6TCAUo5Cp4vP5DObIqHcky0MWyyQojVQ==
+
 "@types/hoist-non-react-statics@*":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
@@ -1996,6 +2006,14 @@
   integrity sha512-RNSXOyb3VyRs/EOGmjBhhGKTbnN6fHWvy5FNLzWfOWOGjgVUKqJZXfpKzLmgoU8h6Hj8mpALj/mbXQASOb92wQ==
   dependencies:
     "@types/history" "*"
+    "@types/react" "*"
+
+"@types/react-router@3.0.19":
+  version "3.0.19"
+  resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-3.0.19.tgz#c7fc0d1feaec5fdff513337f203301de7a27b752"
+  integrity sha512-079+T/Elvlds2Nr2CX6H17c3JUy0J95EUzjFlcF6wissyOisOL23R/Ci7prugPDVT4x2dpGwR+fxpOTitUgIZA==
+  dependencies:
+    "@types/history" "^3"
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^17.0.0":

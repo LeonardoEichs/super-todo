@@ -13,11 +13,12 @@ interface IUser extends FormDataProps {
   id: string;
 }
 
-type ITodoContext = [
-  authState: FormDataProps,
-  setAuthState: React.Dispatch<React.SetStateAction<IUser>>,
-  handleLogin: any
-];
+interface ITodoContext {
+  authState: IUser;
+  fetchCurrentUser: any;
+  handleLogin: any;
+  handleLogout: any;
+}
 
 const defaultUser: IUser = {
   id: "",
@@ -32,11 +33,12 @@ const defaultUser: IUser = {
   otherProducts: [],
 };
 
-export const AuthContext = createContext<ITodoContext>([
-  defaultUser,
-  () => {},
-  () => {},
-]);
+export const AuthContext = createContext<ITodoContext>({
+  authState: defaultUser,
+  fetchCurrentUser: () => {},
+  handleLogin: () => {},
+  handleLogout: () => {},
+});
 
 export const AuthProvider = ({ children }: IAuthProvider) => {
   const [authState, setAuthState] = useState<IUser>(defaultUser);
@@ -62,7 +64,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
 
   const handleLogin = async (formData: FormDataProps) => {
     try {
-      console.log("Login");
+      await validateLogin(formData);
       setAuthState((prevState) => {
         const newAuthState = { ...prevState, id: "1", name: "Leonardo" };
         // Important that we need the updated authState, so we can't wait after render
@@ -70,6 +72,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
         localStorage.setItem("user", JSON.stringify(newAuthState));
         return newAuthState;
       });
+      history.push("/todo");
     } catch (err: any) {
       err.errors = [err.message];
       throw err;
@@ -77,24 +80,22 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
   };
 
   const handleLogout = async () => {
-    console.log("Logout");
-    console.log(history);
-
     try {
       localStorage.removeItem("user");
       setAuthState(defaultUser);
       history.push("/login");
     } catch (err: any) {
-      console.log(err);
-      //err.errors = [err.message];
-      //throw err;
+      err.errors = [err.message];
+      throw err;
     }
   };
 
   if (loading) return <h1>Loading...</h1>;
 
   return (
-    <AuthContext.Provider value={[authState, fetchCurrentUser, handleLogin]}>
+    <AuthContext.Provider
+      value={{ authState, fetchCurrentUser, handleLogin, handleLogout }}
+    >
       {children}
     </AuthContext.Provider>
   );

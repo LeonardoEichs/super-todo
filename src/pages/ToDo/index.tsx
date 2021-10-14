@@ -52,7 +52,7 @@ enum ModalBody {
 }
 
 function ToDo() {
-  const [authState, setAuthState] = useContext(AuthContext);
+  const { authState, handleLogout } = useContext(AuthContext);
   const [showModal, setShowModal] = useState<ModalBody>(ModalBody.NONE);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -130,9 +130,7 @@ function ToDo() {
       <ListItemHeader>
         <h1>ToDo</h1>
         <h1>{authState.name}</h1>
-        <Link to="/login">
-          <button>Logout</button>
-        </Link>
+        <button onClick={handleLogout}>Logout</button>
       </ListItemHeader>
       <SearchInput
         type="text"

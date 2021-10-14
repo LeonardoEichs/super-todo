@@ -32,7 +32,7 @@ const defaultFieldErrorsState: ErrorField = {
 };
 
 function Login() {
-  const [authState, setAuthState, handleLogin] = useContext(AuthContext);
+  const { authState, handleLogin } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [formData, setFormData] = useState<LoginForm>(defaultFormState);
@@ -50,11 +50,11 @@ function Login() {
       try {
         await loginSchema.validate(formData, { abortEarly: false });
         await handleLogin(formData);
-        setIsValidLogin(true);
-        setFormData(defaultFormState);
-        setFieldErrors(defaultFieldErrorsState);
-        setErrors([]);
-        history.push("/todo");
+        // setIsValidLogin(true);
+        // setFormData(defaultFormState);
+        // setFieldErrors(defaultFieldErrorsState);
+        // setErrors([]);
+        // history.push("/todo");
       } catch (err: any) {
         err.errors?.length > 0
           ? setErrors(err.errors)

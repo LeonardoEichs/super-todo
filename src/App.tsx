@@ -16,8 +16,8 @@ function App() {
   return (
     <div className="app">
       <GlobalStyle />
-      <AuthProvider>
-        <Router>
+      <Router>
+        <AuthProvider>
           <Switch>
             <Redirect exact from="/" to="/login" />
             <Route exact path="/login" component={Login} />
@@ -25,8 +25,8 @@ function App() {
             <Route exact path="/todo" component={ToDo} />
             <Route exact path="/todo/:id" component={SingleToDo} />
           </Switch>
-        </Router>
-      </AuthProvider>
+        </AuthProvider>
+      </Router>
     </div>
   );
 }
