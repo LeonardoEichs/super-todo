@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import * as Yup from "yup";
 
-import Input from "components/Input";
+import { AuthContext } from "contexts/auth.context";
 
-import validateLogin from "utils/validateLogin";
+import Input from "components/Input";
 
 import { Container } from "./styles";
 
@@ -32,11 +32,12 @@ const defaultFieldErrorsState: ErrorField = {
 };
 
 function Login() {
+  const [authState, setAuthState, handleLogin] = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [formData, setFormData] = useState<LoginForm>(defaultFormState);
   const [isValidLogin, setIsValidLogin] = useState<boolean>(false);
-  const [fieldErrors, setFieldErrors] = useState<ErrorField>(
+  const [fielderrors, setFieldErrors] = useState<ErrorField>(
     defaultFieldErrorsState
   );
   const history = useHistory();
@@ -48,7 +49,7 @@ function Login() {
       setIsLoading(true);
       try {
         await loginSchema.validate(formData, { abortEarly: false });
-        await validateLogin(formData);
+        await handleLogin(formData);
         setIsValidLogin(true);
         setFormData(defaultFormState);
         setFieldErrors(defaultFieldErrorsState);
@@ -66,13 +67,13 @@ function Login() {
   const onChangeInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value }: EventTargetDestructuring = e.target;
     if (value === "") {
-      setFieldErrors({ ...fieldErrors, [name]: [] });
+      setFieldErrors({ ...fielderrors, [name]: [] });
     } else {
       try {
         await Yup.reach(loginSchema, name).validate(value);
-        setFieldErrors({ ...fieldErrors, [name]: [] });
+        setFieldErrors({ ...fielderrors, [name]: [] });
       } catch (err: any) {
-        setFieldErrors({ ...fieldErrors, [name]: err.errors });
+        setFieldErrors({ ...fielderrors, [name]: err.errors });
       }
     }
     setFormData({ ...formData, [name]: value });
@@ -83,7 +84,7 @@ function Login() {
   // Check if there is no error
   const isEnabled =
     Object.values(formData).every((item) => item.length > 0) &&
-    Object.values(fieldErrors).every((errorArray) => {
+    Object.values(fielderrors).every((errorArray) => {
       return errorArray.length === 0;
     });
 
@@ -103,10 +104,10 @@ function Login() {
           placeholder="username"
           name="username"
           id="username"
-          labelContent="Username"
+          labelcontent="Username"
           value={formData.username}
           onChange={onChangeInput}
-          fieldErrors={fieldErrors.username}
+          fielderrors={fielderrors.username}
           required
         />
         <Input
@@ -114,10 +115,10 @@ function Login() {
           placeholder="password"
           name="password"
           id="password"
-          labelContent="Password"
+          labelcontent="Password"
           value={formData.password}
           onChange={onChangeInput}
-          fieldErrors={fieldErrors.password}
+          fielderrors={fielderrors.password}
           required
         />
         <button className={"primary"} type="submit" disabled={!isEnabled}>

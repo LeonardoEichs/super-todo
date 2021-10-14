@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import TodosService from "services/todos.services";
+
+import { AuthContext } from "contexts/auth.context";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -50,6 +52,7 @@ enum ModalBody {
 }
 
 function ToDo() {
+  const [authState, setAuthState] = useContext(AuthContext);
   const [showModal, setShowModal] = useState<ModalBody>(ModalBody.NONE);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -126,6 +129,7 @@ function ToDo() {
     <Container>
       <ListItemHeader>
         <h1>ToDo</h1>
+        <h1>{authState.name}</h1>
         <Link to="/login">
           <button>Logout</button>
         </Link>
