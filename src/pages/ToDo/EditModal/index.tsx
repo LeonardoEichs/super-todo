@@ -1,6 +1,6 @@
 import { ModalContainer, ButtonContainer } from "../styles";
 
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 
 import TodosService from "services/todos.services";
 
@@ -12,9 +12,7 @@ import { TodoProp } from "ts/types/todo";
 interface EditModalProp {
   activeItem: TodoProp;
   onClose: () => void;
-  setTodos: (
-    value: TodoProp[] | ((prevState: TodoProp[]) => TodoProp[])
-  ) => void;
+  setTodos: React.Dispatch<SetStateAction<TodoProp[]>>;
 }
 
 type EventTargetDestructuring = { name: string; value: string };
