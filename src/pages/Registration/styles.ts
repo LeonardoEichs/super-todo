@@ -25,6 +25,7 @@ export const Container = styled.div`
       font-weight: 600;
       display: block;
       margin-bottom: 1rem;
+      width: max-content;
     }
     margin-top: 1.5rem;
   }

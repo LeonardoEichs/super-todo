@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom";
 import FormikDatePicker from "components/FormikDatePicker";
 import ImgPreview from "components/ImgPreview";
+import ReactTooltip from "react-tooltip";
 
 import { Formik, Field, Form, ErrorMessage } from "formik";
 
@@ -66,7 +67,9 @@ function AccountFields({
         {({ isValid, dirty, isSubmitting, values, setFieldValue }) => (
           <Form>
             <div className="row">
-              <label htmlFor="name">Name</label>
+              <label data-tip="ex: Jane Doe" htmlFor="name">
+                Name
+              </label>
               <Field name="name" type="text" />
               <ErrorMessage className="error" component="div" name="name" />
             </div>
@@ -76,7 +79,9 @@ function AccountFields({
               <ErrorMessage className="error" component="div" name="username" />
             </div>
             <div className="row">
-              <label htmlFor="email">Email</label>
+              <label data-tip="ex: janedoe@gmail.com" htmlFor="email">
+                Email
+              </label>
               <Field name="email" type="text" />
               <ErrorMessage className="error" component="div" name="email" />
             </div>
@@ -140,6 +145,7 @@ function AccountFields({
           </Form>
         )}
       </Formik>
+      <ReactTooltip delayShow={1000} />
     </Container>
   );
 }
