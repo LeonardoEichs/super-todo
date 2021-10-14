@@ -9,6 +9,7 @@ import {
 import Login from "pages/Login";
 import Registration from "pages/Registration";
 import ToDo from "pages/ToDo";
+import SingleToDo from "pages/ToDo/SingleToDo";
 import { AuthProvider } from "contexts/auth.context";
 
 function App() {
@@ -19,9 +20,10 @@ function App() {
         <Router>
           <Switch>
             <Redirect exact from="/" to="/login" />
-            <Route path="/login" component={Login} />
-            <Route path="/registration" component={Registration} />
-            <Route path="/todo" component={ToDo} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/registration" component={Registration} />
+            <Route exact path="/todo" component={ToDo} />
+            <Route exact path="/todo/:id" component={SingleToDo} />
           </Switch>
         </Router>
       </AuthProvider>

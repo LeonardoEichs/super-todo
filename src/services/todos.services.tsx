@@ -25,6 +25,10 @@ class TodosService {
     return await axios.get(URL);
   }
 
+  async get(id: string) {
+    return await axios.get(`${URL}/${id}`);
+  }
+
   async search(searchTerm: string) {
     return await axios.get(`${URL}?q=${searchTerm}`);
   }
