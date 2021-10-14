@@ -9,19 +9,22 @@ import {
 import Login from "pages/Login";
 import Registration from "pages/Registration";
 import ToDo from "pages/ToDo";
+import { AuthProvider } from "contexts/auth.context";
 
 function App() {
   return (
     <div className="app">
       <GlobalStyle />
-      <Router>
-        <Switch>
-          <Redirect exact from="/" to="/login" />
-          <Route path="/login" component={Login} />
-          <Route path="/registration" component={Registration} />
-          <Route path="/todo" component={ToDo} />
-        </Switch>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Switch>
+            <Redirect exact from="/" to="/login" />
+            <Route path="/login" component={Login} />
+            <Route path="/registration" component={Registration} />
+            <Route path="/todo" component={ToDo} />
+          </Switch>
+        </Router>
+      </AuthProvider>
     </div>
   );
 }

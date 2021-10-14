@@ -25,7 +25,7 @@ So far the plans are:
   - Pagination
   - Page for each Todo
 
-- Tooltip
+- Tooltip OK
 - Protected Route
 - Persist user Data
 - localstorage
