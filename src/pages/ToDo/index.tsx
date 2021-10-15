@@ -136,6 +136,7 @@ function ToDo() {
         type="text"
         name="search"
         id="search"
+        placeholder="Search..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

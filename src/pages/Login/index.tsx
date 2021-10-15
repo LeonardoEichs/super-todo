@@ -40,7 +40,6 @@ function Login() {
   const [fielderrors, setFieldErrors] = useState<ErrorField>(
     defaultFieldErrorsState
   );
-  const history = useHistory();
 
   const login = (e: React.FormEvent<HTMLFormElement>) => {
     (async () => {
