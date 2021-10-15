@@ -9,20 +9,14 @@
     {
       "id": 2,
       "title": "Teste 2",
-      "description": "*Teste* de markdown",
-      "status": "doing"
+      "description": "Teste de markdown",
+      "status": "todo"
     },
     {
       "id": 3,
       "title": "Teste 3",
       "description": "*Teste* de markdown",
       "status": "todo"
-    },
-    {
-      "id": "k1lowo612a40j9jx3anm7",
-      "title": "Novo Teste",
-      "description": "Testando Novo",
-      "status": "doing"
     }
   ]
 }

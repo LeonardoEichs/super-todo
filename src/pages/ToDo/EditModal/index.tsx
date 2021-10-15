@@ -19,6 +19,7 @@ type EventTargetDestructuring = { name: string; value: string };
 
 function EditModal({ activeItem, onClose, setTodos }: EditModalProp) {
   const [body, setBody] = useState<TodoProp>(activeItem);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const editValues = (
     e: React.ChangeEvent<
@@ -32,6 +33,7 @@ function EditModal({ activeItem, onClose, setTodos }: EditModalProp) {
   };
 
   const saveChanges = async (body: TodoProp) => {
+    setIsLoading(true);
     await TodosService.update(body.id, body);
     setTodos((prevState: TodoProp[]) => {
       return prevState.map((todo) => {
@@ -48,7 +50,7 @@ function EditModal({ activeItem, onClose, setTodos }: EditModalProp) {
       draggable: false,
       progress: undefined,
     });
-
+    setIsLoading(false);
     onClose();
   };
 
@@ -92,7 +94,11 @@ function EditModal({ activeItem, onClose, setTodos }: EditModalProp) {
       <hr style={{ border: "1px solid var(--gray-100)", margin: "1.5rem 0" }} />
       <ButtonContainer>
         <button onClick={onClose}>Close</button>
-        <button className={"primary"} onClick={() => saveChanges(body)}>
+        <button
+          disabled={isLoading}
+          className={"primary"}
+          onClick={() => saveChanges(body)}
+        >
           Save
         </button>
       </ButtonContainer>
