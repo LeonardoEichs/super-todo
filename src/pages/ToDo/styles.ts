@@ -9,6 +9,10 @@ export const SearchInput = styled.input`
 
 export const TodoList = styled.div`
   margin-top: 2.5rem;
+  width: max(680px, 60%);
+  margin-left: -1rem;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const CreateTodoButton = styled.button`
@@ -19,13 +23,11 @@ export const CreateTodoButton = styled.button`
 `;
 
 export const ListItem = styled.div`
-  margin-left: -1rem;
   margin-bottom: 0.5rem;
   padding: 2.5rem 1rem;
   background-color: var(--white);
   border: 1px solid var(--gray-100);
   border-radius: 0.5rem;
-  width: max(680px, 60%);
 `;
 
 export const ListItemHeader = styled.div`

@@ -35,6 +35,12 @@
       "title": "Algo",
       "description": "Primeiro da lista ASC",
       "status": "todo"
+    },
+    {
+      "id": "6cfe4c3e-991f-40e3-8669-d15167e096f4",
+      "title": "B",
+      "description": "",
+      "status": "todo"
     }
   ]
 }

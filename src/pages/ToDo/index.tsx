@@ -1,5 +1,4 @@
 import { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
 
 import TodosService from "services/todos.services";
 
@@ -51,6 +50,22 @@ enum ModalBody {
   DELETE,
 }
 
+enum Order {
+  ASC,
+  DESC,
+}
+
+const sortTodosByTitle = (todos: TodoProp[], order: Order) => {
+  if (order === Order.ASC)
+    return [...todos].sort((a: TodoProp, b: TodoProp) =>
+      a.title.localeCompare(b.title)
+    );
+  else
+    return [...todos].sort((a: TodoProp, b: TodoProp) =>
+      b.title.localeCompare(a.title)
+    );
+};
+
 function ToDo() {
   const { authState, handleLogout } = useContext(AuthContext);
   const [showModal, setShowModal] = useState<ModalBody>(ModalBody.NONE);
@@ -58,7 +73,9 @@ function ToDo() {
   const [error, setError] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [todos, setTodos] = useState<TodoProp[]>(defaultTodosList);
+  const [sortedTodos, setSortedTodos] = useState<TodoProp[]>(defaultTodosList);
   const [activeItem, setActiveItem] = useState<TodoProp>(defaultTodos);
+  const [sort, setSort] = useState<Order>(Order.DESC);
 
   const handleCloseModal = () => {
     setActiveItem(defaultTodos);
@@ -75,12 +92,25 @@ function ToDo() {
             ? await TodosService.search(searchTerm)
             : await TodosService.getAll();
         setTodos(todosFetch.data);
+        setSortedTodos(todosFetch.data);
       } catch (error) {
         setError("Failed loading list");
       }
       setIsLoading(false);
     })();
   }, [searchTerm]);
+
+  useEffect(() => {
+    setSortedTodos((prevState: TodoProp[]) => {
+      return sortTodosByTitle(prevState, sort);
+    });
+  }, [sort]);
+
+  useEffect(() => {
+    setSortedTodos(() => {
+      return sortTodosByTitle(todos, sort);
+    });
+  }, [todos]);
 
   const deleteTodo = async (id: string) => {
     const todoWithItem: TodoProp | undefined = todos.find(
@@ -142,7 +172,9 @@ function ToDo() {
       />
       <CreateTodoButton
         className={"primary"}
-        onClick={() => setShowModal(ModalBody.CREATE)}
+        onClick={() => {
+          setShowModal(ModalBody.CREATE);
+        }}
       >
         Create New Todo
       </CreateTodoButton>
@@ -150,41 +182,54 @@ function ToDo() {
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          <div>
+          <>
             {error ? (
               <p>{error}</p>
             ) : (
-              todos.map((todo) => (
-                <ListItem key={todo.id}>
-                  <ListItemHeader>
-                    <h3
-                      style={{ display: "inline-block", marginRight: "1rem" }}
-                    >
-                      {todo.title} -{" "}
-                      <span
-                        style={{
-                          textTransform: "uppercase",
-                          color: getStatusColor(todo.status),
-                        }}
+              <>
+                <button
+                  className={"primary"}
+                  style={{ width: "20%", marginLeft: "auto" }}
+                  onClick={() => {
+                    setSort((prevState: Order) => {
+                      return prevState == Order.ASC ? Order.DESC : Order.ASC;
+                    });
+                  }}
+                >
+                  Sort List {sort === Order.ASC ? "DESC" : "ASC"}
+                </button>
+                {sortedTodos.map((todo) => (
+                  <ListItem key={todo.id}>
+                    <ListItemHeader>
+                      <h3
+                        style={{ display: "inline-block", marginRight: "1rem" }}
                       >
-                        {todo.status}
-                      </span>
-                    </h3>
-                    <ListItemHeaderButtons>
-                      <button
-                        className={"danger"}
-                        onClick={() => deleteTodo(todo.id)}
-                      >
-                        Delete
-                      </button>
-                      <button onClick={() => editTodo(todo.id)}>Edit</button>
-                    </ListItemHeaderButtons>
-                  </ListItemHeader>
-                  <p>{todo.description}</p>
-                </ListItem>
-              ))
+                        {todo.title} -{" "}
+                        <span
+                          style={{
+                            textTransform: "uppercase",
+                            color: getStatusColor(todo.status),
+                          }}
+                        >
+                          {todo.status}
+                        </span>
+                      </h3>
+                      <ListItemHeaderButtons>
+                        <button
+                          className={"danger"}
+                          onClick={() => deleteTodo(todo.id)}
+                        >
+                          Delete
+                        </button>
+                        <button onClick={() => editTodo(todo.id)}>Edit</button>
+                      </ListItemHeaderButtons>
+                    </ListItemHeader>
+                    <p>{todo.description}</p>
+                  </ListItem>
+                ))}
+              </>
             )}
-          </div>
+          </>
         )}
       </TodoList>
       <ToastContainer
