@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { TodoStatus } from "ts/enums/todo";
 import { TodoProp } from "ts/types/todo";
 
-import generateRandomId from "utils/generateRandomId";
+import { v4 as uuidv4 } from "uuid";
 
 interface CreateModalProp {
   onClose: () => void;
@@ -21,7 +21,7 @@ interface CreateModalProp {
 type EventTargetDestructuring = { name: string; value: string };
 
 const defaultTodo: TodoProp = {
-  id: generateRandomId(),
+  id: uuidv4(),
   title: "",
   description: "",
   status: TodoStatus.TODO,
@@ -44,12 +44,15 @@ function CreateModal({ onClose, setTodos }: CreateModalProp) {
 
   const createTodo = async () => {
     setIsLoading(true);
-    setBody((prevState) => {
-      return { ...prevState, id: generateRandomId() };
+    const id = uuidv4();
+    console.log(id);
+    const postBody = { ...body, id: id };
+    await TodosService.create(postBody);
+    setTodos((prevState) => {
+      return [...prevState, postBody];
     });
-    await TodosService.create(body);
-    const todosFetch = await TodosService.getAll();
-    setTodos(todosFetch.data);
+    // const todosFetch = await TodosService.getAll();
+    // setTodos(todosFetch.data);
     setIsLoading(false);
     toast.warn(`Created ${body.title}!`, {
       position: "bottom-right",
