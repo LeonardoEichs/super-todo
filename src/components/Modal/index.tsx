@@ -13,18 +13,19 @@ interface ModalProps {
 
 const Modal = ({ children, onClose }: ModalProps) => {
   const modelRef = useRef<HTMLDivElement>(null);
-  // useEffect(() => {
-  //   modelRef.current!.scrollIntoView({
-  //     behavior: "smooth",
-  //     block: "nearest",
-  //     inline: "start",
-  //   });
 
-  //   // document.body.style.overflow = "hidden";
-  //   return () => {
-  //     document.body.style.overflow = "scroll";
-  //   };
-  // }, []);
+  useEffect(() => {
+    modelRef.current!.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "start",
+    });
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "scroll";
+    };
+  }, []);
+
   return ReactDOM.createPortal(
     <>
       <Outside>
