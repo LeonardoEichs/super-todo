@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 
 import TodosService from "services/todos.services";
 
@@ -201,19 +202,24 @@ function ToDo() {
                 {sortedTodos.map((todo) => (
                   <ListItem key={todo.id}>
                     <ListItemHeader>
-                      <h3
-                        style={{ display: "inline-block", marginRight: "1rem" }}
-                      >
-                        {todo.title} -{" "}
-                        <span
+                      <Link to={`/todo/${todo.id}`}>
+                        <h3
                           style={{
-                            textTransform: "uppercase",
-                            color: getStatusColor(todo.status),
+                            display: "inline-block",
+                            marginRight: "1rem",
                           }}
                         >
-                          {todo.status}
-                        </span>
-                      </h3>
+                          {todo.title} -{" "}
+                          <span
+                            style={{
+                              textTransform: "uppercase",
+                              color: getStatusColor(todo.status),
+                            }}
+                          >
+                            {todo.status}
+                          </span>
+                        </h3>
+                      </Link>
                       <ListItemHeaderButtons>
                         <button
                           className={"danger"}
