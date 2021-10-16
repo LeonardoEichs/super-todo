@@ -89,6 +89,10 @@ function EditModal({ activeItem, onClose, setTodos }: EditModalProp) {
               {status}
             </option>
           ))}
+          {/* TodoStatus[key as keyof typeof TodoStatus] to use dynamic key to access property */}
+          {/* {Object.keys(TodoStatus).map((key: string) => (
+            <option>{TodoStatus[key as keyof typeof TodoStatus]}</option>
+          ))} */}
         </select>
       </div>
       <hr style={{ border: "1px solid var(--gray-100)", margin: "1.5rem 0" }} />

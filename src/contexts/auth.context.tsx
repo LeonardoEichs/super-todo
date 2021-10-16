@@ -13,7 +13,7 @@ interface IUser extends FormDataProps {
   id: string;
 }
 
-interface ITodoContext {
+interface IAuthContext {
   authState: IUser;
   fetchCurrentUser: any;
   handleLogin: any;
@@ -33,12 +33,7 @@ const defaultUser: IUser = {
   otherProducts: [],
 };
 
-export const AuthContext = createContext<ITodoContext>({
-  authState: defaultUser,
-  fetchCurrentUser: () => {},
-  handleLogin: () => {},
-  handleLogout: () => {},
-});
+export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
 export const AuthProvider = ({ children }: IAuthProvider) => {
   const [authState, setAuthState] = useState<IUser>(defaultUser);
