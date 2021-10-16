@@ -1,6 +1,4 @@
-import axios from "axios";
-
-const URL = "http://localhost:3333/todos";
+import http from "http-common";
 
 interface EditTodoProp {
   title?: string;
@@ -22,27 +20,27 @@ enum TodoStatus {
 
 class TodosService {
   async getAll() {
-    return await axios.get(URL);
+    return await http.get("/todos");
   }
 
   async get(id: string) {
-    return await axios.get(`${URL}/${id}`);
+    return await http.get(`/todos/${id}`);
   }
 
   async search(searchTerm: string) {
-    return await axios.get(`${URL}?q=${searchTerm}`);
+    return await http.get(`/todos?q=${searchTerm}`);
   }
 
   async update(id: string, data: EditTodoProp) {
-    return await axios.patch(`${URL}/${id}`, data);
+    return await http.patch(`/todos/${id}`, data);
   }
 
   async create(data: CreateTodoProp) {
-    return await axios.post(`${URL}`, data);
+    return await http.post(`/todos`, data);
   }
 
   async delete(id: string) {
-    return await axios.delete(`${URL}/${id}`);
+    return await http.delete(`/todos/${id}`);
   }
 }
 

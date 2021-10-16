@@ -35,6 +35,11 @@ const Routes = () => (
         <Route exact path="/registration" component={Registration} />
         <PrivateRoute exact path="/todo" component={ToDo} />
         <PrivateRoute exact path="/todo/:id" component={SingleToDo} />
+        <Route
+          path="*"
+          exact={true}
+          component={() => <h1>404 Not Found!</h1>}
+        />
       </Switch>
     </AuthProvider>
   </Router>
