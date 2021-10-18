@@ -22,17 +22,13 @@ So far the plans are:
     - Modal OK
   - Search OK
   - Toast (timed notification) OK
-  - Pagination
-  - Page for each Todo
+  - Page for each Todo OK
 
 - Tooltip OK
-- Protected Route
-- Persist user Data
-- localstorage
-- Map -> Leaflet
-- Markdown -> Rich Text Editor
-- Drag n Drop
-- Multiple Image File Upload
+- Protected Route OK
+- Persist user Data OK
+- localstorage OK
+
 
 # Run the Project with
 
